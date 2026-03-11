@@ -357,7 +357,7 @@ a {
   text-align: center;
   background-color: #f15a29;
   background-image:
-    url(https://d9hhrg4mnvzow.cloudfront.net/apply.getperformance.com/13iujm8-section-2nd_10000001400qt000011028.png),
+    url("images/section-bg.png"),
     linear-gradient(90deg, #fbb040 0%, #f58220 45%, #f15a29 100%);
   background-repeat: repeat, no-repeat;
   background-size: auto, cover;
