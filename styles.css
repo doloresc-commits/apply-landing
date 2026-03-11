@@ -1074,6 +1074,35 @@ a {
     display: none;
   }
 
+  /* Section spacing: even top and bottom on mobile */
+  .leaders {
+    padding: 56px 0;
+  }
+
+  .testimonials-members-block {
+    padding: 56px 0;
+  }
+
+  .about-cohort {
+    padding: 56px 0;
+  }
+
+  .process-section {
+    padding: 56px 0;
+  }
+
+  .digital-solutions {
+    padding: 56px 0;
+  }
+
+  .apply-cta-section {
+    padding: 56px 0;
+  }
+
+  .site-footer {
+    padding: 56px 0;
+  }
+
   .hero {
     padding-top: 36px;
   }
@@ -1099,7 +1128,7 @@ a {
   .leaders-inner {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
-    padding-bottom: 48px;
+    padding-bottom: 0;
   }
 
   .leaders-media {
