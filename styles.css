@@ -322,12 +322,14 @@ a {
     justify-content: center;
     align-items: flex-end;
     box-sizing: border-box;
-    width: 100%;
     min-width: 0;
     min-height: 100%;
     padding-top: 40px;
     padding-bottom: 40px;
-    padding-left: clamp(72px, 10vw, 180px);
+    width: 600px;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
     padding-right: clamp(24px, 4vw, 56px);
   }
 
@@ -338,6 +340,10 @@ a {
     max-width: 600px;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .leaders-button {
+    margin-right: auto;
   }
 
   .leaders-copy > .leaders-title {
