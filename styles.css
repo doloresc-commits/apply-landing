@@ -285,26 +285,166 @@ a {
   border-color: #ee4136;
 }
 
-.leaders-media {
-  display: flex;
-  justify-content: flex-end;
+/*
+ * Desktop hero ≥1200px, aligned to reference:
+ * - Two columns (text left, image right)
+ * - Image fills right half; may crop top/bottom but keeps full width (faces visible)
+ * - Text block vertically centered, pulled toward center with fixed readable width
+ */
+@media (min-width: 1200px) {
+  .leaders {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .leaders .container {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 626px;
+  }
+
+  .leaders-inner {
+    display: grid;
+    grid-template-columns: minmax(520px, 1.1fr) minmax(520px, 0.9fr);
+    grid-template-rows: minmax(520px, min(88vh, 940px));
+    gap: 0;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Left column: center vertically, content rail near center (toward image) */
+  .leaders-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: clamp(72px, 10vw, 180px);
+    padding-right: clamp(24px, 4vw, 56px);
+  }
+
+  /* Fixed rail (~580–620px) for stable line breaks */
+  .leaders-copy > .leaders-title,
+  .leaders-copy > .leaders-text,
+  .leaders-copy > .leaders-button {
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .leaders-copy > .leaders-title {
+    margin: 0 0 18px;
+    font-size: 47px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    line-height: 1.15;
+    word-break: normal;
+    overflow-wrap: normal;
+    text-align: left;
+  }
+
+  .leaders-copy > .leaders-text {
+    font-size: 18px;
+    line-height: 29px;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .leaders-copy > .leaders-button {
+    width: fit-content;
+    flex-shrink: 0;
+    align-self: flex-end;
+    margin-top: 8px;
+  }
+
+  /* Right column: image as background to fill cell; original <img> hidden visually */
+  .leaders-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-image: url("images/Meet%20great%20leaders.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .leaders-image {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
 }
 
-.leaders-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 0;
+/* Below desktop hero: tablet / small desktop — mirror background behavior for consistency */
+@media (max-width: 1199px) and (min-width: 769px) {
+  .leaders-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .leaders-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: max(32px, 5vw);
+    padding-right: max(24px, 3vw);
+  }
+
+  .leaders-copy > .leaders-title,
+  .leaders-copy > .leaders-text,
+  .leaders-copy > .leaders-button {
+    max-width: 560px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .leaders-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("images/Meet%20great%20leaders.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .leaders-image {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
 }
 
 .testimonials-members-block .container {
   overflow-x: visible;
 }
 
+/* Aligned with testimonial carousel (.container max-width) */
 .testimonials-members-block .logo-slider {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  max-width: none;
+  width: 100%;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .logo-slider {
@@ -315,6 +455,13 @@ a {
   background: transparent;
   padding: 18px 0;
   width: 100%;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.logo-slider.is-dragging {
+  cursor: grabbing;
 }
 
 .logo-track {
@@ -322,7 +469,7 @@ a {
   align-items: center;
   gap: 50px;
   width: max-content;
-  animation: scroll-logos 26s linear infinite;
+  will-change: transform;
 }
 
 .logo-item {
@@ -339,18 +486,14 @@ a {
   display: block;
   filter: brightness(1.08);
   opacity: 0.95;
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
 }
 
-@keyframes scroll-logos {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+/* Logo marquee scroll driven by JS (autoplay + drag); keyframes unused */
 
-/* Block: testimonials + members (one section, gradient + dots background) */
+/* Block: testimonials + members (one section, gradient + full-bleed dots PNG) */
 .testimonials-members-block {
   padding: 80px 0 48px;
   color: #ffffff;
@@ -358,10 +501,10 @@ a {
   background-color: #f15a29;
   background-image:
   url(https://d9hhrg4mnvzow.cloudfront.net/apply.getperformance.com/13iujm8-section-2nd_10000001400qt000011028.png),
-    linear-gradient(90deg, #fbb040 0%, #f58220 45%, #f15a29 100%);
-  background-repeat: repeat, no-repeat;
-  background-size: auto, cover;
-  background-position: 0 0, center center;
+    linear-gradient(90deg, rgba(251, 177, 65, 0.92) 0%, rgba(244, 131, 31, 0.92) 45%, rgba(241, 90, 39, 0.92) 100%);
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size:cover;
 }
 
 .testimonials-members-block .block-title {
@@ -432,6 +575,7 @@ a {
   height: 244px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
   display: block;
 }
 
@@ -1077,6 +1221,7 @@ a {
   /* Section spacing: even top and bottom on mobile */
   .leaders {
     padding: 56px 0;
+    padding-bottom: 0;
   }
 
   .testimonials-members-block {
@@ -1121,18 +1266,32 @@ a {
 
   /* Leaders: ocultar imagen, una columna, más espacio debajo del botón */
   .leaders .container {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0px;
   }
 
   .leaders-inner {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     padding-bottom: 0;
   }
 
+  .leaders-copy {
+    order: 1;
+    padding: 0px 20px;
+  }
+
   .leaders-media {
-    display: none;
+    order: 2;
+    display: block;
+    width: 100%;
+  }
+
+  .leaders-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
   }
 
   .leaders-title {
@@ -1267,6 +1426,45 @@ a {
   .footer-nav {
     align-items: center;
     text-align: center;
+  }
+}
+
+/* Very small screens ≤600px: stack hero image below text */
+@media (max-width: 600px) {
+  /* Remove extra bottom padding so image sits flush with next section */
+  .leaders {
+    padding-bottom: 0;
+  }
+
+  /* Make image edge‑to‑edge while keeping comfortable padding on text */
+  .leaders .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .leaders-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .leaders-copy {
+    order: 1;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .leaders-media {
+    order: 2;
+    display: block;
+    margin-top: 0;
+  }
+
+  .leaders-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
   }
 }
 
