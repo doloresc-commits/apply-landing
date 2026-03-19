@@ -53,7 +53,7 @@ a {
 }
 
 .site-header {
-  background: linear-gradient(90deg, #fbb040 0%, #f58220 45%, #f15a29 100%);
+  background: linear-gradient(90deg, #FBB040, #f15a27eb);
   border-bottom: none;
 }
 
